@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Cartuchera — Biblioteca de juegos</title>
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🎮</text></svg>">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,800&family=Atkinson+Hyperlegible:wght@400;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#DCDEE5; --surface:#EEEFF3; --ink:#1C1F33; --muted:#5A5F78; --line:#C3C6D2; --accent:#4636C9;
+  --display:"Bricolage Grotesque", "Arial Black", system-ui, sans-serif;
+  --body:"Atkinson Hyperlegible", system-ui, -apple-system, "Segoe UI", sans-serif;
+  color-scheme:light;
+  box-sizing:border-box;
+  padding-top:env(safe-area-inset-top,0px); padding-bottom:env(safe-area-inset-bottom,0px);
+}
+@media (prefers-color-scheme:dark){
+  :root{ --bg:#14162A; --surface:#1D2038; --ink:#E7E8F2; --muted:#9A9EBB; --line:#2E3253; --accent:#A49BFF; color-scheme:dark; }
+}
+*,*::before,*::after{box-sizing:inherit}
+html{scroll-padding-top:env(safe-area-inset-top,0px)}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:var(--body);font-size:1rem;line-height:1.5}
+.wrap{max-width:1180px;margin:0 auto;padding:0 clamp(16px,4vw,40px)}
+
+header.wrap{padding-top:clamp(32px,7vw,72px);padding-bottom:24px}
+h1{font-family:var(--display);font-weight:800;font-size:clamp(2.6rem,9vw,5.5rem);line-height:1;letter-spacing:-.03em;margin:0 0 14px}
+.lead{color:var(--muted);max-width:52ch;margin:0}
+
+.controls-bar{position:sticky;top:env(safe-area-inset-top,0px);z-index:5;background:var(--bg);border-bottom:1px solid var(--line)}
+.controls{padding-top:14px;padding-bottom:14px;display:flex;flex-wrap:wrap;gap:10px;align-items:center}
+.chips{display:flex;gap:6px;flex-wrap:wrap}
+.chip{font:inherit;font-size:.92rem;border:1.5px solid var(--line);background:transparent;color:var(--ink);padding:6px 14px;border-radius:999px;cursor:pointer}
+.chip[aria-pressed="true"]{background:var(--ink);color:var(--bg);border-color:var(--ink)}
+.search{margin-left:auto;font:inherit;padding:8px 14px;border-radius:999px;border:1.5px solid var(--line);background:var(--surface);color:var(--ink);min-width:0;flex:0 1 240px}
+:focus-visible{outline:3px solid var(--accent);outline-offset:3px}
+
+section{padding:36px 0 8px}
+h2{font-family:var(--display);font-weight:500;font-size:1.5rem;margin:0 0 4px;letter-spacing:-.01em}
+.sub{color:var(--muted);font-size:.9rem;margin:0 0 22px}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:28px 22px;align-items:start}
+
+/* Cartuchos */
+.cart{display:block;text-decoration:none;color:inherit;text-align:center}
+.cart .shell{position:relative;margin:0 auto;background:var(--shell);padding:var(--pad);transition:transform .18s ease}
+.cart:hover .shell,.cart:focus-visible .shell{transform:translateY(-6px) rotate(-1.5deg)}
+.cart:focus-visible{outline:none}
+.cart:focus-visible .shell{outline:3px solid var(--accent);outline-offset:4px}
+.label{position:relative;height:100%;border-radius:4px;background:var(--c);color:var(--fg);display:flex;flex-direction:column;justify-content:flex-end;padding:10px;text-align:left;overflow:hidden;background-size:cover;background-position:center}
+.label::before{content:"";position:absolute;inset:0;background:repeating-linear-gradient(135deg,transparent 0 14px,rgba(255,255,255,.08) 14px 28px)}
+.label b{position:relative;font-family:var(--display);font-weight:800;font-size:1.05rem;line-height:1.05;letter-spacing:-.01em}
+.label small{position:relative;opacity:.8;font-size:.75rem}
+.label.has-cover{background-color:#000}
+.label.has-cover::before{background:linear-gradient(transparent 40%,rgba(0,0,0,.75))}
+.label.has-cover{color:#fff}
+.meta{margin-top:10px;font-size:.88rem;color:var(--muted)}
+.meta strong{display:block;color:var(--ink);font-weight:700;font-size:.95rem}
+
+/* GB y GBC: cartucho alto con esquina recortada */
+.gb .shell,.gbc .shell{--pad:22px 12px 26px;width:100%;max-width:150px;aspect-ratio:57/65;border-radius:4px 4px 10px 10px;clip-path:polygon(0 0,86% 0,100% 9%,100% 100%,0 100%)}
+.gb .shell{--shell:#B9B7B1}
+.gbc .shell{--shell:#4B4A55}
+.gb .shell::before,.gbc .shell::before{content:"";position:absolute;left:12px;right:22%;top:7px;height:8px;background:repeating-linear-gradient(90deg,rgba(0,0,0,.18) 0 2px,transparent 2px 6px)}
+/* GBA: cartucho ancho con lomo curvo */
+.gba .shell{--shell:#3D3753;--pad:16px 14px 18px;width:100%;max-width:170px;aspect-ratio:57/35;border-radius:22px 22px 6px 6px}
+/* DS: tarjeta chica */
+.nds .shell{--shell:#5B5E69;--pad:10px 10px 14px;width:78%;max-width:118px;aspect-ratio:33/35;border-radius:6px 6px 4px 4px;clip-path:polygon(0 0,100% 0,100% 100%,10% 100%,0 92%)}
+.gba .label b{font-size:.95rem}
+.nds .label b{font-size:.85rem}
+
+.empty{padding:60px 0;color:var(--muted)}
+footer.wrap{padding-top:32px;padding-bottom:40px;color:var(--muted);font-size:.85rem;border-top:1px solid var(--line);margin-top:48px}
+@media (prefers-reduced-motion:reduce){.cart .shell{transition:none}}
+@media (max-width:520px){.grid{grid-template-columns:repeat(2,1fr);gap:24px 16px}.search{flex-basis:100%;margin-left:0}}
+</style>
+</head>
+<body>
+<header class="wrap">
+  <h1>Cartuchera</h1>
+  <p class="lead">Elegí un cartucho para jugarlo en el navegador. Tu partida se guarda en este dispositivo y la retomás cuando vuelvas.</p>
+</header>
+
+<div class="controls-bar"><div class="controls wrap" role="search">
+  <div class="chips" id="chips"></div>
+  <input class="search" id="q" type="search" placeholder="Buscar juego" aria-label="Buscar juego">
+</div></div>
+
+<main class="wrap" id="lib"></main>
+
+<footer class="wrap">Funciona en computadora y celular. En celular aparecen controles táctiles en pantalla.</footer>
+
+<script src="games.js"></script>
+<script>
+const lib = document.getElementById('lib');
+const chips = document.getElementById('chips');
+const q = document.getElementById('q');
+let filter = 'all';
+
+function textColor(hex){
+  const n = parseInt(hex.slice(1),16), r=n>>16, g=n>>8&255, b=n&255;
+  return (0.299*r+0.587*g+0.114*b) > 160 ? '#1C1F33' : '#FFFFFF';
+}
+function esc(s){return String(s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]))}
+const norm = s => s.toLowerCase().normalize('NFD').replace(/\p{Diacritic}/gu,'');
+
+function renderChips(){
+  const opts = [['all','Todos'], ...Object.entries(PLATFORMS).filter(([k])=>GAMES.some(g=>g.platform===k)).map(([k,p])=>[k,p.name])];
+  chips.innerHTML = opts.map(([k,n])=>`<button class="chip" data-k="${k}" aria-pressed="${k===filter}">${n}</button>`).join('');
+}
+
+function card(g){
+  const p = PLATFORMS[g.platform];
+  const title = g.title.replace(/^Pokémon\s+/,'');
+  return `<a class="cart ${g.platform}" href="play.html?id=${encodeURIComponent(g.id)}">
+    <div class="shell"><div class="label" data-id="${esc(g.id)}" style="--c:${g.color};--fg:${textColor(g.color)}">
+      <small>Pokémon</small><b>${esc(title)}</b></div></div>
+    <div class="meta"><strong>${esc(g.title)}</strong>${p.name}, ${g.year}</div>
+  </a>`;
+}
+
+// Portadas: usa g.cover o busca sola covers/<id>.webp | .jpg | .png
+const coverCache = {};
+function findCover(g){
+  if (g.id in coverCache) return Promise.resolve(coverCache[g.id]);
+  const list = g.cover ? [g.cover] : ['webp','jpg','png'].map(e=>`covers/${g.id}.${e}`);
+  return new Promise(res=>{
+    const tryNext = i => {
+      if (i>=list.length) return res(coverCache[g.id]=null);
+      const im = new Image();
+      im.onload = () => res(coverCache[g.id]=list[i]);
+      im.onerror = () => tryNext(i+1);
+      im.src = list[i];
+    };
+    tryNext(0);
+  });
+}
+function applyCovers(){
+  lib.querySelectorAll('.label[data-id]').forEach(el=>{
+    const g = GAMES.find(x=>x.id===el.dataset.id);
+    findCover(g).then(url=>{ if (url){ el.style.backgroundImage=`url("${url}")`; el.classList.add('has-cover'); } });
+  });
+}
+
+function render(){
+  const term = norm(q.value.trim());
+  const match = g => (filter==='all'||g.platform===filter) && norm(g.title).includes(term);
+  let html = '';
+  for (const [k,p] of Object.entries(PLATFORMS)){
+    const list = GAMES.filter(g=>g.platform===k && match(g));
+    if (!list.length) continue;
+    html += `<section><h2>${p.name}</h2><p class="sub">${list.length} ${list.length===1?'juego':'juegos'}</p><div class="grid">${list.map(card).join('')}</div></section>`;
+  }
+  lib.innerHTML = html || `<p class="empty">No hay juegos que coincidan con “${esc(q.value)}”. Probá con otro nombre o elegí “Todos”.</p>`;
+  applyCovers();
+}
+
+chips.addEventListener('click',e=>{
+  const b = e.target.closest('.chip'); if (!b) return;
+  filter = b.dataset.k; renderChips(); render();
+});
+q.addEventListener('input', render);
+renderChips(); render();
+</script>
+</body>
+</html>
