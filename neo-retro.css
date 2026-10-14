@@ -1,0 +1,109 @@
+/* CARTUCHERA — NEO RETRO 2026. Capa visual; sin cambios de lógica. */
+@import url('https://fonts.googleapis.com/css2?family=Press+Start+2P&family=Space+Grotesk:wght@400;500;600;700&display=swap');
+:root{--bg:#111626;--surface:#1e2740;--surface2:#2a3553;--ink:#f1f4ff;--muted:#adb9d4;--line:#3b4765;--accent:#a78bfa;--ok:#61d7c0;--warn:#f8c96c;--bad:#ff7f91;--display:'Space Grotesk',system-ui,sans-serif;--body:'Space Grotesk',system-ui,sans-serif;color-scheme:dark}
+body{background:radial-gradient(ellipse 80% 42% at 50% -10%,#354478 0,transparent 75%),radial-gradient(circle at 95% 70%,#202747 0,transparent 40%),#111626;color:var(--ink)}
+body::before{content:'';position:fixed;inset:0;pointer-events:none;opacity:.16;background-image:linear-gradient(#8090b533 1px,transparent 1px),linear-gradient(90deg,#8090b533 1px,transparent 1px);background-size:28px 28px;mask-image:linear-gradient(#000,transparent 85%);z-index:0}
+body>*{position:relative}
+::selection{background:#a78bfa;color:#111626}
+:focus-visible{outline:3px solid var(--ok)!important;outline-offset:3px}
+/* BIBLIOTECA */
+header.wrap{padding-top:clamp(35px,7vw,78px);padding-bottom:42px;position:relative}
+header.wrap::after{content:'◆  GAME LIBRARY  ◆';display:inline-flex;margin-top:27px;color:var(--ok);border:1px solid #61d7c075;padding:10px 13px;background:#61d7c00d;font:10px 'Press Start 2P',monospace;letter-spacing:.02em}
+header.wrap h1{font-family:'Press Start 2P',monospace!important;font-size:clamp(1.65rem,4.2vw,3.8rem)!important;letter-spacing:-.08em!important;line-height:1.55!important;text-shadow:5px 5px 0 #594c91,10px 10px 0 #252c4e;margin-bottom:24px!important}
+header.wrap h1::before{content:'●  SISTEMA ONLINE  /  RETRO ARCADE';font:9px 'Press Start 2P',monospace;letter-spacing:0;display:block;color:var(--ok);text-shadow:none;margin-bottom:26px}
+.lead{font-size:1.04rem;color:#bbc7e0;max-width:60ch}
+.controls-bar{background:#151c30ed;backdrop-filter:blur(18px);border-block:1px solid #475472}
+.controls{padding-block:16px;gap:14px}
+.chips{gap:9px}
+.chip{background:#242e4b;color:#d8dff4;border:1px solid #485678;border-radius:5px;padding:11px 14px;font-size:.85rem;box-shadow:3px 3px 0 #0d1120;transition:transform .15s,background .15s}
+.chip:hover{transform:translateY(-2px);background:#344266}
+.chip[aria-pressed=true]{background:var(--accent);color:#131628;border-color:#d7c9ff;box-shadow:3px 3px 0 #564382;font-weight:700}
+.search{background:#222c47;color:var(--ink);border:1px solid #55617f;border-radius:5px;box-shadow:3px 3px 0 #0d1120;padding:11px 15px}
+.search::placeholder{color:#9aabc8}
+section{padding-top:47px}
+section h2{font-family:'Press Start 2P',monospace;font-size:clamp(.75rem,1.6vw,1.02rem);line-height:1.8;letter-spacing:0}
+section h2::before{content:'▸';color:var(--ok);margin-right:14px}
+.sub{margin:0 0 20px 29px}
+.grid{grid-template-columns:repeat(auto-fill,minmax(166px,1fr));gap:18px}
+.cart{position:relative;text-align:center;background:linear-gradient(155deg,#26314d,#1a243b);border:1px solid #404d6c;border-radius:9px;padding:25px 12px 17px;min-height:258px;box-shadow:5px 5px 0 #0b1020;transition:transform .18s,border-color .18s,background .18s}
+.cart::before{content:'◆';position:absolute;top:8px;left:10px;color:#607298;font-size:10px}
+.cart::after{content:'▶ JUGAR';display:block;margin:13px auto 0;font:8px 'Press Start 2P',monospace;color:var(--ok);letter-spacing:0}
+.cart:hover,.cart:focus-visible{transform:translateY(-5px);border-color:var(--accent);background:linear-gradient(155deg,#334166,#212947)}
+.cart:hover .shell{transform:translateY(-4px) rotate(-2deg)}
+.cart .shell{filter:drop-shadow(5px 8px 0 #0b10205e);transition:transform .18s}
+.cart .label{border:1px solid #ffffff28}
+.cart .label b{font-weight:700}
+.meta{margin-top:16px;font-size:.77rem;color:#98aacd}
+.meta strong{color:#ecf0ff;font-size:.88rem;line-height:1.28;margin-bottom:4px}
+.gb .shell,.gbc .shell{max-width:130px}.gba .shell{max-width:150px;margin-top:29px;margin-bottom:30px}.nds .shell{max-width:110px}
+footer.wrap{border-top:1px solid var(--line)}
+/* JUGADOR */
+body:has(.layout){background:radial-gradient(ellipse at 50% -30%,#303e70 0,transparent 65%),#111626}
+.bar{background:#1a2339;border-bottom:2px solid #414e71;padding-block:12px}
+.bar .back{background:#283452;color:#dce4ff;border-radius:5px;border:1px solid #596789;box-shadow:3px 3px 0 #101729;padding:9px 13px}
+.bar .back::before{content:'◀ ';color:var(--ok)}
+.bar .title h1{font-size:clamp(1rem,1.9vw,1.3rem);letter-spacing:-.02em}
+.bar .title p{color:#b3c1da}
+.layout{gap:17px;padding-block:18px}
+.opts,.team{scrollbar-color:#596589 #1b2338;scrollbar-width:thin}
+.opts{background:linear-gradient(#202b46,#1a233b);border:1px solid #414e70;border-radius:8px;padding:18px 14px;gap:22px;box-shadow:5px 5px 0 #0c1223}
+.group{gap:11px}
+.group h2,.team h2{font:9px/1.8 'Press Start 2P',monospace;color:var(--ok);text-transform:uppercase}
+.group h2::before,.team h2::before{content:'◆ ';color:#b698ff}
+.hint,.team-note{color:#a9b8d2}
+.btn{border-radius:5px;background:#2a3755;border:1px solid #526180;box-shadow:3px 3px 0 #101729;transition:background .15s,transform .15s,border-color .15s}
+.btn:hover:not(:disabled){background:#394a70;border-color:#bea7fa;transform:translateY(-2px)}
+.btn:active:not(:disabled){transform:translateY(1px);box-shadow:1px 1px 0 #101729}
+.btn.primary{background:var(--accent);border-color:#d7c9ff;color:#121629;box-shadow:3px 3px 0 #615094}
+.btn[aria-pressed=true]{background:var(--ok);color:#122b35;border-color:#a6f5e7}
+.vol,.slot{background:#283451;border:1px solid #445371;border-radius:5px}
+.slot{padding:9px}
+.stage{border:2px solid #556383;border-radius:12px;background:radial-gradient(ellipse,#222d47,#11182b 72%);box-shadow:0 0 0 6px #1c263c,inset 0 0 50px #070c1a,7px 7px 0 #0a1020;padding:12px}
+#game-wrap{border:5px solid #0a1020;border-radius:5px;box-shadow:0 0 0 2px #59688d,0 16px 42px #0008}
+.team{background:linear-gradient(#222d49,#1a243c);border:1px solid #455473;border-radius:8px;box-shadow:5px 5px 0 #0c1223;padding:17px 12px}
+.mon{background:#2a3755;border:1px solid #445777;border-radius:6px}
+.mon img,.t-mon img{image-rendering:pixelated;filter:drop-shadow(2px 3px 0 #10182d66)}
+.hp{height:7px;border-radius:1px;background:#121c30;border:1px solid #4b5872}.hp i{border-radius:0}
+.tabs{background:#202c47;border:1px solid #48587b;border-radius:6px}
+.tabs button{border-radius:4px}.tabs button[aria-selected=true]{background:var(--accent);color:#121629}
+dialog{background:#202b46;color:var(--ink);border:2px solid #69789b;border-radius:9px;box-shadow:9px 9px 0 #0b1020}
+dialog::backdrop{background:#080e20d9;backdrop-filter:blur(4px)}
+.d-head{background:#263451;border-bottom:1px solid #475673}.d-head h2,#trade-body h2{color:#eee9ff}
+.set-group,.t-mon{background:#25314d;border-color:#4a5b79;border-radius:6px}.t-mon.sel,.t-pick input:checked+.t-mon{border-color:var(--ok)}
+.t-code{font-family:'Press Start 2P',monospace;font-size:clamp(1.3rem,4vw,2.4rem);color:var(--ok)}
+.t-join input,.set-row select{border-radius:4px;background:#151e33;border-color:#536281}
+.status{border-radius:5px;background:#2b3959;border-color:#8191b5;color:#fff}
+@media(max-width:999px){.opts{padding:12px}.stage{padding:6px;box-shadow:none}.team{box-shadow:none}.layout{gap:12px}.tabs{margin-block:3px}}
+@media(max-width:520px){header.wrap h1{font-size:1.6rem!important}.grid{grid-template-columns:repeat(2,minmax(0,1fr));gap:11px}.cart{padding:20px 8px 12px;min-height:236px}.cart .shell{max-width:120px}.gba .shell{max-width:135px}.cart::after{font-size:7px}.chip{font-size:.78rem;padding:9px}.controls{gap:11px}.search{flex-basis:100%}.bar .back{padding:7px;font-size:.82rem}}
+@media(prefers-reduced-motion:reduce){*,*::before,*::after{transition:none!important;animation:none!important}}
+
+/* Adaptacion Neo-Retro al nuevo modo de pantalla dinamica del emulador. */
+@media(min-width:1000px){
+  .layout.bottom{gap:15px 22px}
+  .layout.bottom .opts{padding:12px 16px;gap:14px 25px;align-items:center;box-shadow:4px 4px 0 #0c1223;min-width:0;max-height: min(34vh,310px);overflow:auto}
+  .layout.bottom .group{min-width:0}
+  .layout.bottom .group[data-panel="juego"]{grid-template-columns:minmax(0,1fr) 230px;gap:8px 12px}
+  .layout.bottom .tools{grid-template-columns:repeat(4,minmax(65px,1fr));gap:6px}
+  .layout.bottom .tool{padding:8px 5px;font-size:.74rem}
+  .layout.bottom .slots{grid-template-columns:repeat(3,minmax(110px,1fr));gap:7px}
+  .layout.bottom .stack{width:220px}
+  .layout.bottom .stage{min-height:150px}
+}
+@media(min-width:1000px) and (max-width:1370px){
+  .layout.bottom .opts{gap:12px 18px}
+  .layout.bottom .group[data-panel="juego"]{grid-template-columns:minmax(0,1fr) 190px}
+  .layout.bottom .tools{grid-template-columns:repeat(4,minmax(55px,1fr))}
+  .layout.bottom .slots{grid-template-columns:repeat(3,minmax(95px,1fr))}
+}
+/* Pantalla completa: conservar el lienzo del emulador sin su marco exterior. */
+#game-wrap:fullscreen{border:0;box-shadow:none;border-radius:0}
+/* Pagina de herramientas: misma identidad sin afectar su logica. */
+body:has(.drop) main{position:relative}
+body:has(.drop) main>h1{font-family:'Press Start 2P',monospace;font-size:clamp(1.3rem,3vw,2.15rem);line-height:1.5;text-shadow:4px 4px 0 #554886}
+body:has(.drop) .drop{background:#25314e;border:2px dashed #a78bfa;border-radius:5px;box-shadow:5px 5px 0 #0c1223}
+body:has(.drop) .drop:hover,body:has(.drop) .drop.over{background:#303d61;border-color:var(--ok)}
+body:has(.drop) pre{background:#1a2338;border:1px solid #4a5776;border-radius:4px;color:#cdeee8}
+body:has(.drop) .parts a{font-size:.8rem}
+body:has(.drop) h2{font:10px/1.9 'Press Start 2P',monospace;color:var(--ok)}
+body:has(.drop) input,body:has(.drop) select{border-radius:4px!important;background:#222d48!important;border-color:#536483!important;color:var(--ink)!important}
+@media(max-width:999px){.layout.bottom .opts{max-height:none}}
